@@ -3,7 +3,7 @@
     public abstract class Sorting
     {
         protected int[] _array = new int[Size];
-        protected const int Size = 150;
+        protected const int Size = 70;
         protected DateTime _startTime;
         protected DateTime _endTime;
         protected const int Delay = 0;
@@ -83,7 +83,7 @@
                 n = 0;
             }
 
-            Console.SetCursorPosition(0, 1);
+            Console.SetCursorPosition(0, 0);
 
             Console.WriteLine(_view);
         }
@@ -165,7 +165,7 @@
                 c++;
             }
 
-            Console.SetCursorPosition(0, 1);
+            Console.SetCursorPosition(0, 0);
 
             Console.WriteLine(_view);
         }

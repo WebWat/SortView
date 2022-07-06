@@ -25,12 +25,92 @@ public class ArrayData : Sorting
 
         Thread.Sleep(1000);
 
-        _startTime = DateTime.UtcNow;
-        ShellSort();
-        _endTime = DateTime.UtcNow;
+        //_startTime = DateTime.UtcNow;
+        BeadSort(_array);
+        //_endTime = DateTime.UtcNow;
 
         Render();
-        RenderTime();
+        //RenderTime();
+    }
+
+    private void BeadSort(int[] data)
+    {
+        int i, j, max, sum;
+        byte[] beads;
+
+        for (i = 1, max = data[0]; i < data.Length; ++i)
+            if (data[i] > max)
+                max = data[i];
+
+        beads = new byte[max * data.Length];
+
+        for (i = 0; i < data.Length; ++i)
+        {
+            for (j = 0; j < data[i]; ++j)
+            {
+                beads[i * max + j] = 1;
+            }
+        }
+
+        for (j = 0; j < max; ++j)
+        {
+            for (sum = i = 0; i < data.Length; ++i)
+            {
+                sum += beads[i * max + j];
+
+                beads[i * max + j] = 0;
+            }
+
+            for (i = data.Length - sum; i < data.Length; ++i)
+                beads[i * max + j] = 1;
+        }
+
+        for (i = 0; i < data.Length; ++i)
+        {
+            for (j = 0; j < max && Convert.ToBoolean(beads[i * max + j]); ++j)
+            {
+                RenderCurrent(i, j);
+                data[i] = j;
+            }
+        }
+    }
+
+    private void EvenOddSort(int[] array, int length)
+    {
+        bool isSorted = false;
+
+        while (!isSorted)
+        {
+            isSorted = true;
+
+            //Swap i and i+1 if they are out of order, for i == odd numbers
+            for (int i = 1; i <= length - 2; i = i + 2)
+            {
+                if (array[i] > array[i + 1])
+                {
+                    int temp = array[i];
+                    RenderSwap(i, i + 1);
+                    array[i] = array[i + 1];
+                    array[i + 1] = temp;
+                    isSorted = false;
+                }
+            }
+
+            //Swap i and i+1 if they are out of order, for i == even numbers
+            for (int i = 0; i <= length - 2; i = i + 2)
+            {
+                if (array[i] > array[i + 1])
+                {
+                    RenderSwap(i, i + 1);
+
+                    int temp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = temp;
+                    isSorted = false;
+                }
+            }
+        }
+        return;
     }
 
     static public int Partition(int[] arr, int left, int right)
