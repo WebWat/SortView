@@ -2,15 +2,22 @@
 {
     public abstract class Sorting
     {
-        protected int[] _array = new int[Size];
-        protected const int Size = 70;
-        protected DateTime _startTime;
-        protected DateTime _endTime;
+        private const char _columnChar = '█';
         protected const int Delay = 0;
-        protected const int Space = 2;
-        protected char[] _view = new char[Size * (Size * Space + 1)];
+        protected int[] _array;
+        protected readonly int Size;
+        protected readonly int Space;
+        protected char[] _view;
 
-        public abstract void Start();
+        public Sorting(int size, int space = 2)
+        {
+            Size = size;
+            Space = space;
+            _array = new int[Size];
+            _view = new char[Size * (Size * Space + 1)];
+        }
+
+        public abstract void Start(SortingAlgorithms algorithms);
 
         protected void Fill()
         {
@@ -70,7 +77,7 @@
                 {
                     if (_array[n++] >= Math.Abs(i - Size))
                     {
-                        _view[j] = '█';
+                        _view[j] = _columnChar;
                     }
                     else
                     {
@@ -101,7 +108,7 @@
             while (j < temp)
             {
                 if (value >= Math.Abs(c - Size))
-                    _view[j] = '█';
+                    _view[j] = _columnChar;
                 else
                     _view[j] = ' ';
 
@@ -113,16 +120,6 @@
 
             Console.WriteLine(_view);
         }
-
-        protected void RenderTime()
-        {
-            Console.SetCursorPosition(0, 0);
-
-            using var writer = new StreamWriter("result.txt");
-
-            writer.WriteLine($"Total time: {((_endTime - _startTime).TotalMilliseconds / 1000d):f3} s");
-        }
-
 
         protected void RenderSwap(int a, int b, int delay = Delay)
         {
@@ -140,7 +137,7 @@
             while (j < temp)
             {
                 if (_array[b] >= Math.Abs(c - Size))
-                    _view[j] = '█';
+                    _view[j] = _columnChar;
                 else
                     _view[j] = ' ';
 
@@ -157,7 +154,7 @@
             while (j < temp)
             {
                 if (_array[a] >= Math.Abs(c - Size))
-                    _view[j] = '█';
+                    _view[j] = _columnChar;
                 else
                     _view[j] = ' ';
 
