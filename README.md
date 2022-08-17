@@ -4,6 +4,5 @@ I was inspired to create this project by numerous videos about sorting algorithm
 ### Note
 If you want to hollow out this project, in the console settings, set the **Dot font**, size **8 x 9**
 
-## Demonstration using the Radix sorting
-Click
+## Screenshot
 
