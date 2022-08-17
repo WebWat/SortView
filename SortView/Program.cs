@@ -1,7 +1,9 @@
 ﻿using SortView;
 
-var a = new ArrayData(size: 70);
+var a = new ArrayData(size: 80);
 
-a.Start(SortingAlgorithms.HeapSort);
+Console.ReadKey(true);
+
+a.Start(SortingAlgorithms.RadixSort);
 
 Console.ReadKey(true);
